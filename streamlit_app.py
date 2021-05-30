@@ -12,19 +12,23 @@ st.write(
     f"""
     # So you heard about Streamlit...
 
-    Hey! 👋 My name is Johannes. 
-    When you read this, someone probably told you about Streamlit and how great it is. 
-    But you may have no idea how Streamlit or coding in Python work. This guide is just for 
-    you. It teaches you how to build beautiful web apps with Streamlit in 3 simple lessons. 
-    This guide is:
-
+    Hey! 👋 
+    When you read this, someone probably told you about Streamlit and how great it is.
+    But you have no idea how Streamlit works or how to code in Python. This guide is
+    just for you. It teaches you how to build beautiful web apps with Streamlit in 3
+    simple lessons. This guide is:
+    
     - <span style="color: {ui.color('violet-80')}">**interactive:** you will code directly in here, no installation required</span>
     - <span style="color: {ui.color('blue-80')}">**project-based:** in each lesson, we will build one full Streamlit app</span>
     - <span style="color: {ui.color('green-90')}">**for newcomers:** no Python or coding knowledge required</span>
     - <span style="color: {ui.color('red-90')}">**built with Streamlit:** because what else? 😉</span>
+    
+    <p align="right">Happy Streamliting!<br><i>Johannes (<a href="https://twitter.com/jrieke">@jrieke</a>)</i></p>
+    
     """,
     unsafe_allow_html=True,
 )
+
 
 st.write("")
 
