@@ -1,34 +1,38 @@
 import streamlit as st
 from execbox import execbox
 
+import ui
+
 st.set_page_config(page_title="So you heard about Streamlit...", page_icon="🎈")
 st.image(
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png",
     width=100,
 )
-"""
-# So you heard about Streamlit...
+st.write(
+    f"""
+    # So you heard about Streamlit...
 
-Hey! 👋 My name is Johannes. 
-When you read this, someone probably told you about Streamlit and how great it is. 
-But you may have no idea how Streamlit or coding in Python work. This guide is just for 
-you. It teaches you how to build beautiful web apps with Streamlit in 3 simple lessons. 
-This guide is:
+    Hey! 👋 My name is Johannes. 
+    When you read this, someone probably told you about Streamlit and how great it is. 
+    But you may have no idea how Streamlit or coding in Python work. This guide is just for 
+    you. It teaches you how to build beautiful web apps with Streamlit in 3 simple lessons. 
+    This guide is:
 
-- **interactive:** you will code directly in here, no installation required
-- **project-based:** in each lesson, we will build one full Streamlit app
-- **for newcomers:** no Python or coding knowledge required
-- **built with Streamlit 😉**
-"""
+    - <span style="color: {ui.color('violet-80')}">**interactive:** you will code directly in here, no installation required</span>
+    - <span style="color: {ui.color('blue-80')}">**project-based:** in each lesson, we will build one full Streamlit app</span>
+    - <span style="color: {ui.color('green-90')}">**for newcomers:** no Python or coding knowledge required</span>
+    - <span style="color: {ui.color('red-90')}">**built with Streamlit:** because what else? 😉</span>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.write("")
 
 
 def lesson1_step1():
+    ui.colored_header("Lesson 1: Saying hello 👋", "violet-70")
     st.write(
         """
-        ## Lesson 1: Saying hello 👋
-
         We'll start with the most basic example in every coding tutorial: Printing out
         "Hello World!". First, we need to tell the computer that we want to use the Streamlit
         library.
