@@ -4,6 +4,20 @@ from execbox import execbox
 import ui
 
 st.set_page_config(page_title="So you heard about Streamlit...", page_icon="🎈")
+
+# # Make radio buttons horizontal.
+# st.write(
+#     """
+#     <style>
+#         .main * div.row-widget.stRadio > div {
+#             flex-direction:row
+#         }
+#     </style>
+#     """
+#     "",
+#     unsafe_allow_html=True,
+# )
+
 st.image(
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png",
     width=100,
@@ -23,14 +37,20 @@ st.write(
     - <span style="color: {ui.color('green-90')}">**for newcomers:** no Python or coding knowledge required</span>
     - <span style="color: {ui.color('red-90')}">**built with Streamlit:** because what else? 😉</span>
     
-    <p align="right">Happy Streamliting!<br><i>Johannes (<a href="https://twitter.com/jrieke">@jrieke</a>)</i></p>
-    
     """,
     unsafe_allow_html=True,
 )
 
 
-st.write("")
+# st.radio(
+#     "Jump to",
+#     ["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"],
+# )
+
+st.write(
+    '<p align="right">Happy Streamliting!<br><i>Johannes (<a href="https://twitter.com/jrieke">@jrieke</a>)</i></p>',
+    unsafe_allow_html=True,
+)
 
 
 def lesson1_step1():
@@ -90,12 +110,19 @@ def lesson1_step4():
         are ready to move on to lesson 2 (coming soon...).
         """
     )
+    st.write("")
+    # return st.button("Continue")
+
+
+def lesson2_step1():
+    ui.colored_header("Lesson 2: Animal pics 🐶", "blue-70")
     return True
 
 
 steps = [lesson1_step1, lesson1_step2, lesson1_step3, lesson1_step4]
 
-for step in steps:
+for i, step in enumerate(steps):
     if not step():
         break
-    st.write("---")
+    if i < len(steps) - 1:
+        st.write("---")
