@@ -1,6 +1,7 @@
 import streamlit as st
 from execbox import execbox
 
+st.set_page_config(page_title="So you heard about Streamlit...", page_icon="🎈")
 st.image(
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png",
     width=100,
