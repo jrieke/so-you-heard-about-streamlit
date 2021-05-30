@@ -11,12 +11,13 @@ st.image(
 
 Hey! 👋 My name is Johannes. 
 When you read this, someone probably told you about Streamlit and how great it is. 
-But you may have no idea how Streamlit or coding in Python works. This guide is just for 
+But you may have no idea how Streamlit or coding in Python work. This guide is just for 
 you. It teaches you how to build beautiful web apps with Streamlit in 3 simple lessons. 
 This guide is:
 
 - **interactive:** you will code directly in here, no installation required
 - **project-based:** in each lesson, we will build one full Streamlit app
+- **for newcomers:** no Python or coding knowledge required
 - **built with Streamlit 😉**
 """
 
