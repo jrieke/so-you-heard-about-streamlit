@@ -33,8 +33,8 @@ def lesson1_step1():
         "Hello World!". First, we need to tell the computer that we want to use the Streamlit
         library.
 
-        Type `import streamlit as st` in the box below, then press **CMD** + **ENTER** 
-        on your Mac keyboard or **CTRL** + **ENTER** on you Windows keyboard:
+        Type `import streamlit as st` in the box below, then click on the **APPLY** 
+        button:
         """
     )
     text = execbox(autorun=True)
