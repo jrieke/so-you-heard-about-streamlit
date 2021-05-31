@@ -189,9 +189,10 @@ def exercise_box(body, expected_body, *args, **kwargs):
     # TODO: Maybe add some delay after typing has finished before executing or at least
     #   showing error messages, so the user is not confused by error messages.
     solved = execbox(body, *args, **kwargs) == expected_body
-    skipped = st.checkbox("Skip", key="skip_" + body)
-    if not (solved or skipped):
-        st.stop()
+    if not solved:
+        skipped = st.checkbox("Skip", key="skip_" + body)
+        if not skipped:
+            st.stop()
 
 
 if lesson_name == "Lesson 1":
