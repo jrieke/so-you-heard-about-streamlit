@@ -20,7 +20,8 @@ st.write(
     unsafe_allow_html=True,
 )
 
-_, center, _ = st.beta_columns([0.2, 0.6, 0.2])
+# TODO: Make this look like centered design.
+_, center, _ = st.beta_columns([0.22, 0.56, 0.22])
 with center:
     st.image(
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png",
@@ -54,7 +55,7 @@ with center:
         '<p align="right">Happy Streamliting!<br><i>Johannes (<a href="https://twitter.com/jrieke">@jrieke</a>)</i></p>',
         unsafe_allow_html=True,
     )
-    st.write("")
+    ui.space(2)
 
 
 def lesson1_step1():
