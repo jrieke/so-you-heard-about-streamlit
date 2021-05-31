@@ -20,7 +20,7 @@ st.write(
     unsafe_allow_html=True,
 )
 
-# TODO: Make this look like centered design.
+# TODO: Make this look like layout="centered".
 _, center, _ = st.beta_columns([0.22, 0.56, 0.22])
 with center:
     st.image(
@@ -73,7 +73,17 @@ def lesson1_step1():
             """
         )
         text = execbox(autorun=True, output_container=col2)
-    return text == "import streamlit as st"
+        if text == "import streamlit as st":
+            st.write(
+                """
+                Great! Streamlit is ready to be used now. There's two parts to this command:
+
+                - `import streamlit` makes the computer import the Streamlit library
+                - `as st` tells the computer that from now on, we will not write `streamlit` anymore
+                but just `st` (which save us a tiny bit of time 😉)
+                """
+            )
+            return True
 
 
 def lesson1_step2():
@@ -81,18 +91,18 @@ def lesson1_step2():
     with col1:
         st.write(
             """
-            Great! Streamlit is ready to be used now. There's two parts to this command:
-
-            - `import streamlit` makes the computer import the Streamlit library
-            - `as st` tells the computer that from now on, we will not write `streamlit` anymore
-            but just `st` (which save us a tiny bit of time 😉)
-
             Let's move on. To print out "Hello World!", just type `st.write("Hello World!")` in
             the box below (in a new line below the import statement):
             """
         )
         text = execbox("import streamlit as st", autorun=True, output_container=col2)
-    return text == 'import streamlit as st\nst.write("Hello World!")'
+        if text == 'import streamlit as st\nst.write("Hello World!")':
+            st.write(
+                """
+                See this "Hello World!" on the right side? 👉 That's the output of the `st.write`command!! 
+                """
+            )
+            return True
 
 
 def lesson1_step3():
@@ -100,8 +110,7 @@ def lesson1_step3():
     with col1:
         st.write(
             """
-            See this "Hello World" above? ☝️ That's the output of the `st.write`command!! 
-            It works but doesn't look mindblowing yet, right? Let's make it a bit prettier.
+            It works but doesn't look very impressive yet, right? Let's make it a bit prettier.
             
             Replace `st.write` with `st.title` and turn `"Hello World!"` into
             `"Hello Streamlit! 🎈"` (you can copy/paste the balloon emoji into the editor if
@@ -113,21 +122,14 @@ def lesson1_step3():
             autorun=True,
             output_container=col2,
         )
-    return text == 'import streamlit as st\nst.title("Hello Streamlit! 🎈")'
-
-
-def lesson1_step4():
-    st.balloons()
-    col1, col2 = st.beta_columns(2)
-    with col1:
-        st.write(
-            """
-            Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, you 
-            are ready for lesson 2 – just select it at the top of the page.
-            """
-        )
-        st.write("")
-    # return st.button("Continue")
+        if text == 'import streamlit as st\nst.title("Hello Streamlit! 🎈")':
+            st.balloons()
+            st.write(
+                """
+                Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, you 
+                are ready for lesson 2 – just select it at the top of the page.
+                """
+            )
 
 
 def lesson2_step1():
@@ -145,7 +147,9 @@ def lesson2_step1():
             """
         )
         text = execbox(autorun=True, output_container=col2)
-        return text == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")'
+        if text == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")':
+            st.write("Nice! Good job on remembering lesson 1.")
+            return True
 
 
 def lesson2_step2():
@@ -153,8 +157,6 @@ def lesson2_step2():
     with col1:
         st.write(
             """
-            Nice! Good job on remembering lesson 1.
-            
             Before showing the animal pics, let's be polite and ask the user for their name.
             For this, we'll use our first Streamlit **widget**. Widgets are interactive elements
             where the user can input some data. Streamlit has a bunch of built-in widgets 
@@ -170,10 +172,14 @@ def lesson2_step2():
             autorun=True,
             output_container=col2,
         )
-    return (
-        text
-        == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?", key="sd")'
-    )
+        if (
+            text
+            == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?", key="sd")'
+        ):
+            st.write(
+                "This looks good but nothing is happening yet, when you enter your name in the text field 😔"
+            )
+            return True
 
 
 def lesson2_step3():
@@ -181,8 +187,7 @@ def lesson2_step3():
     with col1:
         st.write(
             """
-            This looks good but nothing is happening yet, when you enter your name in the 
-            text field. We need to do two things to change this:
+            We need to do two things to change this:
             
             1. Get the user input from the text field. In the box below, change the last 
             line to `name = st.text_input("What\'s your name?")`. This will store the 
@@ -197,34 +202,19 @@ def lesson2_step3():
             autorun=True,
             output_container=col2,
         )
-    return (
-        text
-        == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nst.write(f"Hey {name}!")'
-    )
-
-
-def lesson2_step4():
-    col1, col2 = st.beta_columns(2)
-    with col1:
-        st.write(
-            """
-            Go try it out! Enter your name in the text field above and see what happens.
-            """
-        )
-        text = execbox(
-            'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?", key="sfjljlsd")\nst.write(f"Hey {name}!")',
-            autorun=True,
-            output_container=col2,
-        )
-    return (
-        text
-        == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?", key="sd")'
-    )
+        if (
+            text
+            == 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nst.write(f"Hey {name}!")'
+        ):
+            st.write(
+                "Go try it out! Enter your name in the text field on the right and see what happens."
+            )
+            return True
 
 
 lessons = {
-    "Lesson 1": [lesson1_step1, lesson1_step2, lesson1_step3, lesson1_step4],
-    "Lesson 2": [lesson2_step1, lesson2_step2, lesson2_step3, lesson2_step4],
+    "Lesson 1": [lesson1_step1, lesson1_step2, lesson1_step3],
+    "Lesson 2": [lesson2_step1, lesson2_step2, lesson2_step3],
 }
 
 # with col1:
