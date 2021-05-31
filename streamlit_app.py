@@ -59,7 +59,7 @@ with center:
     ui.space(2)
 
 
-def lesson1_step1(step_execbox):
+def lesson1_step1(my_blocking_execbox):
     st.write(
         """
         We'll start with the most basic example in every coding tutorial: Printing out
@@ -72,20 +72,19 @@ def lesson1_step1(step_execbox):
     )
     given = ""
     expected = "import streamlit as st"
-    if step_execbox(given, expected):
-        st.write(
-            """
-            Great! Streamlit is ready to be used now. There's two parts to this command:
+    my_blocking_execbox(given, expected)
+    st.write(
+        """
+        Great! Streamlit is ready to be used now. There's two parts to this command:
 
-            - `import streamlit` makes the computer import the Streamlit library
-            - `as st` tells the computer that from now on, we will not write `streamlit` anymore
-            but just `st` (which save us a tiny bit of time 😉)
-            """
-        )
-        return True
+        - `import streamlit` makes the computer import the Streamlit library
+        - `as st` tells the computer that from now on, we will not write `streamlit` anymore
+        but just `st` (which save us a tiny bit of time 😉)
+        """
+    )
 
 
-def lesson1_step2(step_execbox):
+def lesson1_step2(my_blocking_execbox):
     st.write(
         """
         Let's move on. To print out "Hello World!", just type `st.write("Hello World!")` in
@@ -94,16 +93,15 @@ def lesson1_step2(step_execbox):
     )
     given = "import streamlit as st"
     expected = 'import streamlit as st\nst.write("Hello World!")'
-    if step_execbox(given, expected):
-        st.write(
-            """
-            See this "Hello World!" on the right side? 👉 That's the output of the `st.write`command!! 
-            """
-        )
-        return True
+    my_blocking_execbox(given, expected)
+    st.write(
+        """
+        See this "Hello World!" on the right side? 👉 That's the output of the `st.write`command!! 
+        """
+    )
 
 
-def lesson1_step3(step_execbox):
+def lesson1_step3(my_blocking_execbox):
     st.write(
         """
         It works but doesn't look very impressive yet, right? Let's make it a bit prettier.
@@ -115,18 +113,17 @@ def lesson1_step3(step_execbox):
     )
     given = 'import streamlit as st\nst.write("Hello World!")'
     expected = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")'
-    if step_execbox(given, expected):
-        st.balloons()
-        st.write(
-            """
-            Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, you 
-            are ready for lesson 2 – just select it at the top of the page.
-            """
-        )
-        return True
+    my_blocking_execbox(given, expected)
+    st.balloons()
+    st.write(
+        """
+        Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, you 
+        are ready for lesson 2 – just select it at the top of the page.
+        """
+    )
 
 
-def lesson2_step1(step_execbox):
+def lesson2_step1(my_blocking_execbox):
     st.write(
         """
         In this lesson, we'll build a more advanced Streamlit app: It will show the user
@@ -139,12 +136,11 @@ def lesson2_step1(step_execbox):
     )
     given = ""
     expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")'
-    if step_execbox(given, expected):
-        st.write("Nice! Good job on remembering lesson 1.")
-        return True
+    my_blocking_execbox(given, expected)
+    st.write("Nice! Good job on remembering lesson 1.")
 
 
-def lesson2_step2(step_execbox):
+def lesson2_step2(my_blocking_execbox):
     st.write(
         """
         Before showing the animal pics, let's be polite and ask the user for their name.
@@ -159,14 +155,13 @@ def lesson2_step2(step_execbox):
     )
     given = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")'
     expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?", key="sd")'
-    if step_execbox(given, expected):
-        st.write(
-            "This looks good but nothing is happening yet, when you enter your name in the text field 😔"
-        )
-        return True
+    my_blocking_execbox(given, expected)
+    st.write(
+        "This looks good but nothing is happening yet, when you enter your name in the text field 😔"
+    )
 
 
-def lesson2_step3(step_execbox):
+def lesson2_step3(my_blocking_execbox):
     st.write(
         """
         We need to do two things to change this:
@@ -181,17 +176,17 @@ def lesson2_step3(step_execbox):
     )
     given = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?")'
     expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nst.write(f"Hey {name}!")'
-    if step_execbox(given, expected):
-        st.write(
-            "Go try it out! Enter your name in the text field on the right and see what happens."
-        )
-        return True
+    my_blocking_execbox(given, expected)
+    st.write(
+        "Go try it out! Enter your name in the text field on the right and see what happens."
+    )
 
 
 def blocking_execbox(body, expected_body, *args, **kwargs):
     """Shows an execbox which returns True when the user inputs the `expected_body`."""
     # TODO: Add some more magic to disregard blank lines etc.
-    return execbox(body, *args, **kwargs) == expected_body
+    if execbox(body, *args, **kwargs) != expected_body:
+        st.stop()
 
 
 if lesson_name == "Lesson 1":
@@ -204,11 +199,11 @@ elif lesson_name == "Lesson 2":
 for i, step in enumerate(steps):
     col1, col2 = st.beta_columns(2)
     with col1:
-        step_execbox = functools.partial(
+        my_blocking_execbox = functools.partial(
             blocking_execbox, output_container=col2, autorun=True
         )
-        step_finished = step(step_execbox)
-    if not step_finished:
-        break
+        step_finished = step(my_blocking_execbox)
+    # if not step_finished:
+    #     break
     if i < len(steps) - 1:
         st.write("---")
