@@ -177,7 +177,7 @@ def lesson2_step2(my_exercise_box):
     expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?")'
     my_exercise_box(given, expected)
     st.write(
-        "This looks good but nothing is happening yet, when you enter your name in the text field 😔"
+        "Looks good! Unfortunately, nothing happens when you enter your name in the gray text field 😔"
     )
 
 
@@ -198,7 +198,58 @@ def lesson2_step3(my_exercise_box):
     expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nst.write(f"Hey {name}!")'
     my_exercise_box(given, expected)
     st.write(
-        "Go try it out! Enter your name in the text field on the right and see what happens."
+        "Go try it out! Enter your name in the text field on the right, press Enter, and see what happens..."
+    )
+    # TODO: Explain f-string.
+
+
+def lesson2_step4(my_exercise_box):
+    st.write(
+        """
+        Super cool, right? But there's one thing we can improve: When the user hasn't
+        entered their name yet, the app still shows "Hey !" below the text field. Let's 
+        remove this.
+        
+        We will use an **if clause** for this. In this case, we just want to check 
+        if `name` contains a value and only show the greeting when it does. Luckily for 
+        us, this is very easy in Python. Just replace the last line of your code by:
+
+        ```
+        if name:
+            st.write(f"Hey {name}!")
+        ```
+        """
+    )
+    given = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nst.write(f"Hey {name}!")'
+    expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nif name:\n    st.write(f"Hey {name}!")'
+    my_exercise_box(given, expected)
+    st.write(
+        """
+        Try it out again! Now the greeting will only appear after you entered your name.
+        In general, all indented code below an `if` clause (as the `st.write` command in 
+        this case) will only be executed when the `if` clause is true (more on this later!). 
+        """
+    )
+
+
+def lesson2_step5(my_exercise_box):
+    st.write(
+        """
+        Ok, time for animals! First, we want to ask the user what their favorite animal
+        is. For this, we'll use yet another widget: A select box.
+        
+        Below your code, add `animal = st.selectbox("What's you favorite?", ["dog", "cat", "chick"])`.
+        Make sure it is indented again, so it only shows up after the user entered their 
+        name (and the `if` clause is true).
+        """
+    )
+    given = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nif name:\n    st.write(f"Hey {name}!")'
+    expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nname = st.text_input("What\'s your name?")\nif name:\n    st.write(f"Hey {name}!")\n    animal = st.selectbox("What\'s you favorite?", ["dog", "cat", "chick"])'
+    my_exercise_box(given, expected)
+    st.write(
+        """
+        
+        """
     )
 
 
@@ -220,7 +271,7 @@ if lesson_name == "Lesson 1":
     steps = [lesson1_step1, lesson1_step2, lesson1_step3, lesson1_step4]
 elif lesson_name == "Lesson 2":
     ui.colored_header("Lesson 2: Animal pics 🐶", "blue-70")
-    steps = [lesson2_step1, lesson2_step2, lesson2_step3]
+    steps = [lesson2_step1, lesson2_step2, lesson2_step3, lesson2_step4, lesson2_step5]
 
 for i, step in enumerate(steps):
     col1, col2 = st.beta_columns(2)
