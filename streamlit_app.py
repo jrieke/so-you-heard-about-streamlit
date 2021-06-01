@@ -262,6 +262,8 @@ def exercise_box(body, expected_body, *args, **kwargs):
     solved = execbox(body, *args, **kwargs) == expected_body
     if not solved:
         skipped = st.checkbox("Skip", key="skip_" + body)
+        if st.checkbox("Show solution"):
+            st.code(expected_body)
         if not skipped:
             st.stop()
 
