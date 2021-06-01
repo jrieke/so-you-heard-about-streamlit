@@ -114,11 +114,31 @@ def lesson1_step3(my_exercise_box):
     given = 'import streamlit as st\nst.write("Hello World!")'
     expected = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")'
     my_exercise_box(given, expected)
+    st.write(
+        """
+        Way better! 😍
+        """
+    )
+
+
+def lesson1_step4(my_exercise_box):
+    st.write(
+        """
+        Almost there! Let's add a short description below the title to finish up.
+        
+        Use the `st.write` command again and pass in the text `"This is my very first app."`
+        (again, in a new line below your existing code).
+        """
+    )
+    given = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")'
+    expected = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")\nst.write("This is my very first app.")'
+    my_exercise_box(given, expected)
     st.balloons()
     st.write(
         """
-        Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, you 
-        are ready for lesson 2 – just select it at the top of the page.
+        Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, 
+        you are ready for lesson 2 (cute animals are waiting there 🤗🐶). 
+        Just select it at the top of the page.
         """
     )
 
@@ -154,7 +174,7 @@ def lesson2_step2(my_exercise_box):
         """
     )
     given = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")'
-    expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?", key="sd")'
+    expected = 'import streamlit as st\nst.title("Your favorite animal 🐶🐱🐥")\nst.text_input("What\'s your name?")'
     my_exercise_box(given, expected)
     st.write(
         "This looks good but nothing is happening yet, when you enter your name in the text field 😔"
@@ -197,7 +217,7 @@ def exercise_box(body, expected_body, *args, **kwargs):
 
 if lesson_name == "Lesson 1":
     ui.colored_header("Lesson 1: Saying hello 👋", "violet-70")
-    steps = [lesson1_step1, lesson1_step2, lesson1_step3]
+    steps = [lesson1_step1, lesson1_step2, lesson1_step3, lesson1_step4]
 elif lesson_name == "Lesson 2":
     ui.colored_header("Lesson 2: Animal pics 🐶", "blue-70")
     steps = [lesson2_step1, lesson2_step2, lesson2_step3]
