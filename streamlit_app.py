@@ -33,10 +33,10 @@ with center:
         # So you heard about Streamlit...
 
         Hey! 👋 
-        When you read this, someone probably told you about Streamlit and how great it is.
-        But you have no idea how Streamlit works or how to code in Python. This guide is
-        just for you. It teaches you how to build beautiful web apps with Streamlit in 3
-        simple lessons. This guide is:
+        When you read this, someone probably told you about [Streamlit](https://streamlit.io/) 
+        and how great it is. But you may have no idea how Streamlit works or how to code 
+        in Python. This guide is just for you. It teaches you how to build beautiful web 
+        apps with Streamlit in 3 simple lessons. This guide is:
         
         - <span style="color: {ui.color('violet-80')}">**interactive:** you will code directly in here, no installation required</span>
         - <span style="color: {ui.color('blue-80')}">**project-based:** in each lesson, we will build one full Streamlit app</span>
