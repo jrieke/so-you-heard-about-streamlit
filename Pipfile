@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-streamlit = "*"
+streamlit = "==0.84"
 st-execbox = {editable = true, git = "https://github.com/jrieke/st-execbox"}
 
 [dev-packages]
