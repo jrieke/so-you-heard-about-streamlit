@@ -24,18 +24,21 @@ st.write(
 if not st.session_state:
     st.session_state.lesson = "Lesson 1"
     st.session_state.step = 0
-    
+
+
 def next_step():
     st.session_state.step += 1
-    
+
+
 def next_lesson():
     st.session_state.step = 0
     current_lesson_idx = int(st.session_state.lesson.split(" ")[1])
     new_lesson_idx = current_lesson_idx + 1
     st.session_state.lesson = f"Lesson {new_lesson_idx}"
 
+
 # TODO: Make this look like layout="centered".
-_, center, _ = st.beta_columns([0.22, 0.56, 0.22])
+_, center, _ = st.columns([0.22, 0.56, 0.22])
 with center:
     st.image(
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png",
@@ -61,9 +64,7 @@ with center:
     )
 
     lesson_name = st.radio(
-        "Jump to",
-        ["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"],
-        key="lesson"
+        "Jump to", ["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"], key="lesson"
     )
 
     st.write(
@@ -155,7 +156,6 @@ def lesson1_step4(my_exercise_box):
             """
         )
         return True
-    
 
 
 def lesson2_step1(my_exercise_box):
@@ -275,17 +275,18 @@ def exercise_box(body, expected_body, *args, **kwargs):
     # TODO: Maybe add some delay after typing has finished before executing or at least
     #   showing error messages, so the user is not confused by error messages.
     user_input = execbox(body, *args, **kwargs)
-    # TODO: Somehow, since I updated to 0.84, st-execbox escapes the retun value, 
+    # TODO: Somehow, since I updated to 0.84, st-execbox escapes the retun value,
     #   which it didn't do before.
     user_input = user_input[1:-1].replace("\\n", "\n").replace("\\", "")
     # st.write(user_input)
     # st.write(expected_body)
-    solved = (user_input == expected_body)#f'"{expected_body}"')
+    solved = user_input == expected_body  # f'"{expected_body}"')
     # st.write(solved)
     # st.write(body, expected_body)
     if not solved:
         st.button("Skip", key="skip_" + body, on_click=next_step)
     return solved
+
 
 if st.session_state.lesson == "Lesson 1":
     ui.colored_header("Lesson 1: Saying hello 👋", "violet-70")
@@ -294,8 +295,8 @@ elif st.session_state.lesson == "Lesson 2":
     ui.colored_header("Lesson 2: Animal pics 🐶", "blue-70")
     steps = [lesson2_step1, lesson2_step2, lesson2_step3, lesson2_step4, lesson2_step5]
 
-for i, step_func in enumerate(steps[:1+st.session_state.step]):
-    col1, col2 = st.beta_columns(2)
+for i, step_func in enumerate(steps[: 1 + st.session_state.step]):
+    col1, col2 = st.columns(2)
     with col1:
         my_exercise_box = functools.partial(
             exercise_box, output_container=col2, autorun=True
