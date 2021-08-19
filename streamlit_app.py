@@ -33,8 +33,7 @@ def next_step():
 def next_lesson():
     st.session_state.step = 0
     current_lesson_idx = int(st.session_state.lesson.split(" ")[1])
-    new_lesson_idx = current_lesson_idx + 1
-    st.session_state.lesson = f"Lesson {new_lesson_idx}"
+    st.session_state.lesson = f"Lesson {current_lesson_idx + 1}"
 
 
 # TODO: Make this look like layout="centered".
@@ -275,9 +274,6 @@ def exercise_box(body, expected_body, *args, **kwargs):
     # TODO: Maybe add some delay after typing has finished before executing or at least
     #   showing error messages, so the user is not confused by error messages.
     user_input = execbox(body, *args, **kwargs)
-    # TODO: Somehow, since I updated to 0.84, st-execbox escapes the retun value,
-    #   which it didn't do before.
-    user_input = user_input[1:-1].replace("\\n", "\n").replace("\\", "")
     # st.write(user_input)
     # st.write(expected_body)
     solved = user_input == expected_body  # f'"{expected_body}"')
