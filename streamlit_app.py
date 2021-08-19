@@ -21,8 +21,23 @@ st.write(
     unsafe_allow_html=True,
 )
 
+if not st.session_state:
+    st.session_state.lesson = "Lesson 1"
+    st.session_state.step = 0
+
+
+def next_step():
+    st.session_state.step += 1
+
+
+def next_lesson():
+    st.session_state.step = 0
+    current_lesson_idx = int(st.session_state.lesson.split(" ")[1])
+    st.session_state.lesson = f"Lesson {current_lesson_idx + 1}"
+
+
 # TODO: Make this look like layout="centered".
-_, center, _ = st.beta_columns([0.22, 0.56, 0.22])
+_, center, _ = st.columns([0.22, 0.56, 0.22])
 with center:
     st.image(
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png",
@@ -48,8 +63,7 @@ with center:
     )
 
     lesson_name = st.radio(
-        "Jump to",
-        ["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"],
+        "Jump to", ["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"], key="lesson"
     )
 
     st.write(
@@ -72,16 +86,14 @@ def lesson1_step1(my_exercise_box):
     )
     given = ""
     expected = "import streamlit as st"
-    my_exercise_box(given, expected)
-    st.write(
-        """
-        Great! Streamlit is ready to be used now. There's two parts to this command:
-
-        - `import streamlit` makes the computer import the Streamlit library
-        - `as st` tells the computer that from now on, we will not write `streamlit` anymore
-        but just `st` (which save us a tiny bit of time 😉)
-        """
-    )
+    if my_exercise_box(given, expected):
+        st.write(
+            """
+            Great! Streamlit is ready to be used! Note that due to `as st`, we can 
+            from now on write `st` instead of `streamlit` in our code 😉
+            """
+        )
+        return True
 
 
 def lesson1_step2(my_exercise_box):
@@ -93,12 +105,13 @@ def lesson1_step2(my_exercise_box):
     )
     given = "import streamlit as st"
     expected = 'import streamlit as st\nst.write("Hello World!")'
-    my_exercise_box(given, expected)
-    st.write(
-        """
-        See this "Hello World!" on the right side? 👉 That's the output of the `st.write`command!! 
-        """
-    )
+    if my_exercise_box(given, expected):
+        st.write(
+            """
+            See this "Hello World!" on the right side? 👉 That's the output of the `st.write`command!! 
+            """
+        )
+        return True
 
 
 def lesson1_step3(my_exercise_box):
@@ -113,12 +126,13 @@ def lesson1_step3(my_exercise_box):
     )
     given = 'import streamlit as st\nst.write("Hello World!")'
     expected = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")'
-    my_exercise_box(given, expected)
-    st.write(
-        """
-        Way better! 😍
-        """
-    )
+    if my_exercise_box(given, expected):
+        st.write(
+            """
+            Way better! 😍
+            """
+        )
+        return True
 
 
 def lesson1_step4(my_exercise_box):
@@ -132,15 +146,15 @@ def lesson1_step4(my_exercise_box):
     )
     given = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")'
     expected = 'import streamlit as st\nst.title("Hello Streamlit! 🎈")\nst.write("This is my very first app.")'
-    my_exercise_box(given, expected)
-    st.balloons()
-    st.write(
-        """
-        Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, 
-        you are ready for lesson 2 (cute animals are waiting there 🤗🐶). 
-        Just select it at the top of the page.
-        """
-    )
+    if my_exercise_box(given, expected):
+        st.balloons()
+        st.write(
+            """
+            Wuhuuu!!! Congrats on your first little Streamlit app! Fantastic job, 
+            you are ready for lesson 2 (cute animals are waiting there 🤗🐶). 
+            """
+        )
+        return True
 
 
 def lesson2_step1(my_exercise_box):
@@ -259,28 +273,36 @@ def exercise_box(body, expected_body, *args, **kwargs):
     # TODO: Use button instead of checkbox.
     # TODO: Maybe add some delay after typing has finished before executing or at least
     #   showing error messages, so the user is not confused by error messages.
-    solved = execbox(body, *args, **kwargs) == expected_body
+    user_input = execbox(body, *args, **kwargs)
+    # st.write(user_input)
+    # st.write(expected_body)
+    solved = user_input == expected_body  # f'"{expected_body}"')
+    # st.write(solved)
+    # st.write(body, expected_body)
     if not solved:
-        skipped = st.checkbox("Skip", key="skip_" + body)
-        if st.checkbox("Show solution"):
-            st.code(expected_body)
-        if not skipped:
-            st.stop()
+        st.button("Skip", key="skip_" + body, on_click=next_step)
+    return solved
 
 
-if lesson_name == "Lesson 1":
+if st.session_state.lesson == "Lesson 1":
     ui.colored_header("Lesson 1: Saying hello 👋", "violet-70")
     steps = [lesson1_step1, lesson1_step2, lesson1_step3, lesson1_step4]
-elif lesson_name == "Lesson 2":
+elif st.session_state.lesson == "Lesson 2":
     ui.colored_header("Lesson 2: Animal pics 🐶", "blue-70")
     steps = [lesson2_step1, lesson2_step2, lesson2_step3, lesson2_step4, lesson2_step5]
 
-for i, step in enumerate(steps):
-    col1, col2 = st.beta_columns(2)
+for i, step_func in enumerate(steps[: 1 + st.session_state.step]):
+    col1, col2 = st.columns(2)
     with col1:
         my_exercise_box = functools.partial(
             exercise_box, output_container=col2, autorun=True
         )
-        step(my_exercise_box)
-    if i < len(steps) - 1:
+        step_done = step_func(my_exercise_box)
+    if i < st.session_state.step:
         st.write("---")
+    elif step_done:
+        ui.space()
+        if i < len(steps) - 1:
+            st.button("Next", on_click=next_step)
+        else:
+            st.button("Go to next lesson", on_click=next_lesson)
